@@ -1,0 +1,2 @@
+# Nord-AI
+Agentic AI

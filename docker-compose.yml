@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  nord-ai:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nord-ai
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - NORD_AI_HOST=0.0.0.0
+      - NORD_AI_PORT=8000
+      - MISTRAL_API_KEY=${MISTRAL_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-}
+      - NORD_AI_API_KEYS=${NORD_AI_API_KEYS:-}
+      - NORD_AI_AUDIT_SECRET=${NORD_AI_AUDIT_SECRET:-}
+      - NORD_AI_ENCRYPTION_KEY=${NORD_AI_ENCRYPTION_KEY:-}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-}
+    volumes:
+      - nord-ai-data:/app/backend/data
+    networks:
+      - nord-ai-net
+
+volumes:
+  nord-ai-data:
+
+networks:
+  nord-ai-net:
+    driver: bridge
